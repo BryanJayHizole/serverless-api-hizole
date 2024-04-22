@@ -6,7 +6,7 @@ const cors =  require('cors');
 
 const app =  express();
 //your mongoDB Cloud URL
-const dbCloudUrl = '';
+const dbCloudUrl = 'mongodb+srv://bryanhizole:bryan142001@cluster0.ogfgkgo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const dbLocalUrl = '';
 
 app.use(cors());
