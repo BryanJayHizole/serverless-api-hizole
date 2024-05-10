@@ -10,7 +10,7 @@ function InventoryForm() {
     const [editItem, setEditItem] = useState(null);
 
     useEffect(() => {
-        axios.get('https://serverless-api-hizole.netlify.app/.netlify/functions/api')
+        axios.get('https://serverless-api-hizole.netlify.app/.netlify/functions/api/inventory')
             .then((response) => {
                 setData(response.data);
             })
@@ -27,8 +27,8 @@ function InventoryForm() {
         }
 
         const url = editItem
-            ? `https://serverless-api-hizole.netlify.app/.netlify/functions/api/${editItem._id}`
-            : 'https://serverless-api-hizole.netlify.app/.netlify/functions/api';
+            ? `https://serverless-api-hizole.netlify.app/.netlify/functions/api/inventory/${editItem._id}`
+            : 'https://serverless-api-hizole.netlify.app/.netlify/functions/api/inventory';
         const method = editItem ? 'put' : 'post';
 
         axios[method](url, { name, quantity, reorderPoint })
@@ -63,7 +63,7 @@ function InventoryForm() {
 
     const handleDelete = (_id) => {
         axios
-            .delete(`https://serverless-api-hizole.netlify.app/.netlify/functions/api/${_id}`)
+            .delete(`https://serverless-api-hizole.netlify.app/.netlify/functions/api/inventory/${_id}`)
             .then(() => {
                 setData(data.filter((item) => item._id !== _id));
             })
