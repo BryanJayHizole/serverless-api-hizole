@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 const InventoryReport = ({ inventory }) => {
+  // You can include API calls here if needed
   return (
     <div>
       <h2>Inventory Report</h2>
@@ -10,7 +11,6 @@ const InventoryReport = ({ inventory }) => {
           <tr>
             <th>Name</th>
             <th>Quantity</th>
-            <th>Reorder Point</th>
           </tr>
         </thead>
         <tbody>
@@ -18,7 +18,6 @@ const InventoryReport = ({ inventory }) => {
             <tr key={item.id}>
               <td>{item.name}</td>
               <td>{item.quantity}</td>
-              <td>{item.reorderPoint}</td>
             </tr>
           ))}
         </tbody>
