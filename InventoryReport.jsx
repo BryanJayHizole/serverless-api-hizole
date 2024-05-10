@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 const InventoryReport = ({ inventory }) => {
   // You can include API calls here if needed

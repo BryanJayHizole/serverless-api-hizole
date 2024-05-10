@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const InventoryEditForm = ({ itemToEdit, fetchData }) => {
+const InventoryEdit = ({ itemToEdit, fetchData }) => {
   const [name, setName] = useState('');
   const [quantity, setQuantity] = useState(0);
   const [reorderPoint, setReorderPoint] = useState(0);

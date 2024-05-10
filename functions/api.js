@@ -7,6 +7,9 @@ const inventoryRoutes = require('./routes/inventory');
 
 const app = express();
 const router = express.Router();
+//your mongoDB Cloud URL
+const dbCloudUrl = 'mongodb+srv://bryanhizole:bryan142001@cluster0.ogfgkgo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const dbLocalUrl = '';
 
 // MongoDB connection setup
 
