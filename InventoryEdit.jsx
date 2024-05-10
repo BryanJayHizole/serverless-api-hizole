@@ -17,7 +17,7 @@ const InventoryEditForm = ({ itemToEdit, fetchData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`your-api-url/inventory/${itemToEdit.id}`, { name, quantity, reorderPoint });
+      await axios.put(`/.netlify/functions/api/inventory/${itemToEdit.id}`, { name, quantity, reorderPoint });
       // Assuming fetchData is a function to refetch data after edit
       fetchData();
     } catch (error) {

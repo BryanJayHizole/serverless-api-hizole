@@ -9,7 +9,7 @@ const InventoryForm = ({ fetchData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('your-api-url/inventory', { name, quantity, reorderPoint });
+      await axios.post('/.netlify/functions/api', { name, quantity, reorderPoint });
       // Assuming fetchData is a function to refetch data after addition
       fetchData();
       setName('');

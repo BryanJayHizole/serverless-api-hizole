@@ -5,7 +5,7 @@ import axios from 'axios';
 const InventoryList = ({ inventory, fetchData }) => {
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`your-api-url/inventory/${id}`);
+      await axios.delete(`/.netlify/functions/api/inventory/${id}`);
       // Assuming fetchData is a function to refetch data after deletion
       fetchData();
     } catch (error) {
