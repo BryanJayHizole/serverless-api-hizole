@@ -1,70 +1,75 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from 'axios';
 
 function InventoryForm() {
-    const [name, setName] = useState(''); 
-    const [quantity, setQuantity] = useState(0); 
-    const [reorderPoint, setReorderPoint] = useState(0); 
+    const [data, setData] = useState([]);
+    const [error, setError] = useState('');
+    const [name, setName] = useState('');
+    const [quantity, setQuantity] = useState('');
+    const [reorderPoint, setReorderPoint] = useState('');
+    const [editItem, setEditItem] = useState(null);
 
-    useEffect(() => { 
-        axios.get('https://serverless-api-hizole.netlify.app/.netlify/functions/api') 
-            .then((response) => { 
-                setData(response.data); 
-            }) 
-            .catch((error) => { 
-                setError('Error occurred while fetching data: ' + error.message); 
-            }); 
+    useEffect(() => {
+        axios.get('https://serverless-api-hizole.netlify.app/.netlify/functions/api')
+            .then((response) => {
+                setData(response.data);
+            })
+            .catch((error) => {
+                setError('Error occurred while fetching data: ' + error.message);
+            });
     }, []);
 
-    const handleSubmit = (e, id = null) => { 
-        e.preventDefault(); 
-        if (!name || !quantity || !reorderPoint) { 
-            setError('Name and age cannot be empty! '); 
-            return; 
-        } 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!name || !quantity || !reorderPoint) {
+            setError('Name, quantity, and reorder point cannot be empty!');
+            return;
+        }
 
-        const url = editItem 
+        const url = editItem
             ? `https://serverless-api-hizole.netlify.app/.netlify/functions/api/${editItem._id}`
             : 'https://serverless-api-hizole.netlify.app/.netlify/functions/api';
-        const method = editItem ? 'put' : 'post'; 
+        const method = editItem ? 'put' : 'post';
 
-        axios[method](url, { name, quantity, reorderPoint }) 
-            .then((response) => { 
-                if (editItem) { 
-                    setData(data.map((item) => item._id === editItem._id ? response.data : item)); 
-                } else { 
-                    setData([...data, response.data,]); 
-                } 
-                setName(''); 
-                setQuantity(''); 
-                setReorderPoint(""); 
-            }) 
-            .catch((error) => { 
-                setError('Error occurred while submitting data: ' + error.message); 
-            }); 
-    }; 
+        axios[method](url, { name, quantity, reorderPoint })
+            .then((response) => {
+                if (editItem) {
+                    setData(data.map((item) => item._id === editItem._id ? response.data : item));
+                } else {
+                    setData([...data, response.data]);
+                }
+                setName('');
+                setQuantity('');
+                setReorderPoint('');
+                setEditItem(null);
+                setError('');
+            })
+            .catch((error) => {
+                setError('Error occurred while submitting data: ' + error.message);
+            });
+    };
 
-    const handleEdit = (_id) => { 
-        const itemToEdit = data.find((item) => item._id === _id); 
-        if (itemToEdit) { 
-            setEditItem(itemToEdit); 
-            setName(itemToEdit.name); 
-            setQuantity(itemToEdit.quantity); 
+    const handleEdit = (_id) => {
+        const itemToEdit = data.find((item) => item._id === _id);
+        if (itemToEdit) {
+            setEditItem(itemToEdit);
+            setName(itemToEdit.name);
+            setQuantity(itemToEdit.quantity);
             setReorderPoint(itemToEdit.reorderPoint);
-        } else { 
-            console.error("Item not found for editing."); 
-        } 
-    }; 
+        } else {
+            console.error("Item not found for editing.");
+        }
+    };
 
-    const handleDelete = (_id) => { 
-        axios 
-            .delete(`https://serverless-api-hizole.netlify.app/.netlify/functions/api/${_id}`) 
-            .then(() => { 
-                setData(data.filter((item) => item._id !== _id)); 
-            }) 
-            .catch((error) => { 
-                console.log('Error occurred while deleting data: ' , error.message); 
-            }); 
+    const handleDelete = (_id) => {
+        axios
+            .delete(`https://serverless-api-hizole.netlify.app/.netlify/functions/api/${_id}`)
+            .then(() => {
+                setData(data.filter((item) => item._id !== _id));
+            })
+            .catch((error) => {
+                console.error('Error occurred while deleting data: ' , error.message);
+            });
     };
 
     return (
@@ -78,20 +83,20 @@ function InventoryForm() {
                     className="input-field"
                 />
                 <input
-                    type="text"
-                    value={age}
+                    type="number"
+                    value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                     placeholder="Quantity"
                     className="input-field"
-                />     
+                />
                 <input
-                    type="text"
-                    value={age}
+                    type="number"
+                    value={reorderPoint}
                     onChange={(e) => setReorderPoint(e.target.value)}
                     placeholder="Reorder Point"
                     className="input-field"
-                />                       
-                <button type="submit" className="submit-btn"> {editItem ?  'Update Data' : 'Add Data'}</button>
+                />
+                <button type="submit" className="submit-btn"> {editItem ? 'Update Data' : 'Add Data'}</button>
             </form>
             {error && <p>{error}</p>}
 
