@@ -4,7 +4,7 @@ import axios from 'axios';
 const InventoryList = ({ inventory, fetchData }) => {
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/.netlify/functions/api/inventory/${id}`);
+      await axios.delete(`https://serverless-api-hizole.netlify.app/.netlify/functions/api/inventory${id}`);
       fetchData();
     } catch (error) {
       console.error('Error deleting inventory item:', error);

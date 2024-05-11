@@ -17,7 +17,7 @@ const InventoryEdit = ({ itemToEdit, fetchData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`/.netlify/functions/api/inventory/${itemToEdit.id}`, { name, quantity, reorderPoint });
+      await axios.put(`https://serverless-api-hizole.netlify.app/.netlify/functions/api/inventory${editItem._id}`, { name, quantity, reorderPoint });
       fetchData();
     } catch (error) {
       console.error('Error editing inventory item:', error);
