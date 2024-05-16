@@ -3,7 +3,6 @@ const express = require('express');
 const serverless = require('serverless-http');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const inventoryRoutes = require('./routes/inventory');
 
 const app = express();
 const router = express.Router();
@@ -21,7 +20,6 @@ mongoose.connect(dbCloudUrl || dbLocalUrl)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('Failed to connect to MongoDB', error));
 
-// Mount inventory routes
 app.use('/.netlify/functions/api');
 
 module.exports.handler = serverless(app);
