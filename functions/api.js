@@ -22,6 +22,6 @@ mongoose.connect(dbCloudUrl || dbLocalUrl)
   .catch((error) => console.error('Failed to connect to MongoDB', error));
 
 // Mount inventory routes
-app.use('/.netlify/functions/api', inventoryRoutes);
+app.use('/.netlify/functions/api');
 
 module.exports.handler = serverless(app);
