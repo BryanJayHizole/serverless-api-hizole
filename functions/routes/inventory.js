@@ -5,7 +5,7 @@ const InventoryModel = require('../models/inventory');
 const router = express.Router();
 
 // GET all inventory items
-router.get('/', async (req, res) => {
+router.get('/collect', async (req, res) => {
     try {
         const items = await InventoryModel.find();
         res.json(items);
