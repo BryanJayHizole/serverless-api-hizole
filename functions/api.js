@@ -25,6 +25,6 @@ mongoose.connect(dbCloudUrl || dbLocalUrl)
   .catch((error) => console.error('Failed to connect to MongoDB', error));
 
 app.use('/.netlify/functions/api', authorRouter);
-app.use('/.netlify/functions/api', inventoryRouter);
+app.use('/.netlify/functions/api/inventory/', inventoryRouter);
 
 module.exports.handler = serverless(app);
