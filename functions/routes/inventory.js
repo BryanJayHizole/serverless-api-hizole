@@ -14,6 +14,33 @@ router.get('/collect', async (req, res) => {
     }
 });
 
+// Generate inventory reports
+router.get('/reports', async (req, res) => {
+    try {
+        // Retrieve all inventory items
+        const items = await InventoryModel.find();
+
+        // Calculate total quantity and reorder point statistics
+        const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
+        const totalReorderPoint = items.reduce((total, item) => total + item.reorderPoint, 0);
+
+        // Other report generation logic as needed...
+
+        // Prepare the report data
+        const reportData = {
+            totalQuantity,
+            totalReorderPoint,
+            // Add other report data as needed...
+        };
+
+        // Return the report data
+        res.json(reportData);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+
 // GET a single inventory item by ID
 router.get('/:id', getItem, (req, res) => {
     res.json(res.item);
@@ -64,7 +91,7 @@ router.delete('/delete/:id', async (req, res) => {
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
-});
+}); 
 
 // Middleware to get an item by ID
 async function getItem(req, res, next) {
