@@ -8,6 +8,7 @@ const app = express();
 const router = express.Router();
 
 const authorRouter = require('./routes/author');
+const inventoryRouter = require('./routes/inventory');
 
 //your mongoDB Cloud URL
 const dbCloudUrl = 'mongodb+srv://bryanhizole:bryan142001@cluster0.ogfgkgo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
@@ -24,5 +25,6 @@ mongoose.connect(dbCloudUrl || dbLocalUrl)
   .catch((error) => console.error('Failed to connect to MongoDB', error));
 
 app.use('/.netlify/functions/api', authorRouter);
+app.use('/.netlify/functions/api', inventoryRouter);
 
 module.exports.handler = serverless(app);
