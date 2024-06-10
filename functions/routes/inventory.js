@@ -54,7 +54,7 @@ router.put('/:id', getItem, async (req, res) => {
 });
 
 // DELETE an inventory item
-router.delete('/:id', getItem, async (req, res) => {
+router.delete('/delete/:id', getItem, async (req, res) => {
     try {
         await res.item.remove();
         res.json({ message: 'Deleted Inventory Item' });
